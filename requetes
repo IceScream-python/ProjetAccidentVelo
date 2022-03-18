@@ -1,0 +1,19 @@
+import sqlite3
+
+class Requetes():        
+    @classmethod
+    def renvoyer_liste(self,colonne,Table):
+        conn = sqlite3.connect('Accident_France_2.db')
+        cur = conn.cursor()
+        cur.execute(f"SELECT Distinct {colonne} FROM {Table}")
+        conn.commit()
+        villes = cur.fetchall()
+        print(villes[0])
+        cur.close()
+        conn.close()    
+        return list(map(lambda x: x[0],villes))
+    
+    @classmetod
+    def liste_affichage(self,departement,annee,mois,jour,gravite):
+        pass
+    
