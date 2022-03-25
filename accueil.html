@@ -7,20 +7,27 @@
 </head>
 <body>
 <h1> Accueil</h1>
+<a href="{{url_for('stats')}}">Statistiques des accidents</a>
 <form method="POST">
     <select name="annee" size="1">
 	{% for annee in annees %}
 		<option> {{annee}} </option>
 	{% endfor %}
     </select>
-	    <select name="commune" size="1">
-	{% for commune in communes %}
-		<option> {{commune}} </option>
+	<select name="departement" size="1">
+	{% for departement in departements %}
+		<option> {{departement}} </option>
 	{% endfor %}
+    </select>
+    <select name="gravite" size="1">
+    {% for gravite in gravites %}
+        <option> {{gravite}} </option>
+    {% endfor %}
     </select>
 	<input type="submit">
    </form>
-   {{texte}}
-{{map | safe	}}
+<p name="Carte">
+{{map | safe}}
+</p>
 </body>
 </html>
