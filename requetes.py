@@ -23,5 +23,5 @@ class Requetes():
         return resultat
         
 if __name__=='__main__':
-    liste_requete = {'annee':'2010','departement':'Ain','gravite':'2 - Blessé hospitalisé'}
+    liste_requete = {'annee':'2010','departement':'Ain','gravite':'2'}
     print(Requetes.liste_affichage('lat, lon','ACCIDENTS_VELOS',f"WHERE annee={liste_requete['annee']} AND graviteaccident={liste_requete['gravite']}"))
