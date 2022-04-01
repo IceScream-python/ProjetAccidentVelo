@@ -1,1 +1,17 @@
-csxcd
+title {
+	color : red ;
+	text-align : center ;
+	font-size : 30px ;
+}
+
+a {
+	color : blue ;
+	font-size : 18px ;
+	text-align : left ;
+}
+
+p {
+	color : black ;
+	text-align : left ;
+	font-size : 15px
+}
