@@ -3,6 +3,7 @@ title {
 	text-align : center ;
 	font-size : 30px ;
 	font-weight : bold ;
+	font-family : Rockwell Extra Bold ;
 }
 
 a {
@@ -10,10 +11,12 @@ a {
 	font-size : 18px ;
 	text-align : left ;
 	font-style : italic ;
+	font-family : Arial ;
 }
 
 p {
 	color : black ;
 	text-align : left ;
-	font-size : 15px
+	font-size : 15px ;
+	font-family : 
 }
