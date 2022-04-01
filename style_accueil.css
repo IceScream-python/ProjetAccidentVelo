@@ -2,12 +2,14 @@ h1 {
 	color : red ;
 	text-align : center ;
 	font-size : 30px ;
+	font-weight : bold ;
 }
 
 a {
 	color : blue ;
 	font-size : 18px ;
 	text-align : left ;
+	font-style : italic ;
 }
 
 form {
