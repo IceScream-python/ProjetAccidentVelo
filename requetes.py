@@ -21,6 +21,25 @@ class Requetes():
         cur.close()
         conn.close()
         return resultat
+    @classmethod
+    def liste_stat(self,var):
+        conn = sqlite3.connect('Accident_France_2.db')
+        cur = conn.cursor()
+        table = {'annee': Requetes.renvoyer_liste('annee'),'conditionsatmosperiques':Requetes.renvoyer_liste('conditionsatmosperiques'),'departement':Requetes.renvoyer_liste('nom_dep'),'saison':[]}
+        dic = dict()
+        #print(table[var])  
+        for v in table[var]:
+            dic[v] = {0:0,1:0,2:0,3:0}
+            for indice in range(4):
+                try:
+                    cur.execute(f"SELECT COUNT(*) FROM ACCIDENTS_VELOS WHERE graviteaccident = {indice} and {var} = '{v}'")
+                    dic[v][indice] = cur.fetchall()[0][0]
+                except:
+                    print(v)
+                
+        cur.close()
+        conn.close()
+        return dic
         
 if __name__=='__main__':
     liste_requete = {"annee":2010,"departement":"AUDE","gravite":"2"}
