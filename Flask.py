@@ -30,10 +30,18 @@ def accueil():
     #return render_template("accueil.html",map=folium_map._repr_html_(),texte=str(year),annees =  Requetes.renvoyer_liste('annee','ACCIDENTS_VELOS'), communes = Requetes.renvoyer_liste('Nom_dep','DEPARTEMENT') )
     return render_template("accueil.html",map=folium_map._repr_html_(),annees =  annees,departements = departements, gravites = gravites )
 
-
 @app.route('/stats',methods=['GET','POST'])
 def stats():
-    return render_template('stats.html')
+    liste = {'annee': Requetes.renvoyer_liste('annee'),'météo':Requetes.renvoyer_liste('conditionsatmosperiques'),'departement':Requetes.renvoyer_liste('nom_dep'),'saison':['Ete','Automne','Hiver','Printemps']}
+    try:            
+        Variable =  request.form['option']
+        print(Variable)    
+    except:
+        Variable ='annee'
+    values = Requetes.liste_stat(Variable)
+    print(values)
+    return render_template('stats.html',Liste = liste[Variable],Variable=Variable, options = liste.keys(),values = values )
+
 if __name__ == '__main__' :
     app.run(debug=True)
 
