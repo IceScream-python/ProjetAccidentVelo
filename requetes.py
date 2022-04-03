@@ -21,25 +21,38 @@ class Requetes():
         cur.close()
         conn.close()
         return resultat
+   
     @classmethod
     def liste_stat(self,var):
         conn = sqlite3.connect('Accident_France_2.db')
         cur = conn.cursor()
-        table = {'annee': Requetes.renvoyer_liste('annee'),'conditionsatmosperiques':Requetes.renvoyer_liste('conditionsatmosperiques'),'departement':Requetes.renvoyer_liste('nom_dep'),'saison':[]}
-        dic = dict()
+        table = {
+            'annee': Requetes.renvoyer_liste('annee'),
+            'conditionsatmosperiques':Requetes.renvoyer_liste('conditionsatmosperiques'),
+            'nom_dep':Requetes.renvoyer_liste('nom_dep'),
+            'saison': ('printemps','ete','automne','hiver')}
+        mois = {'hiver' : ('décembre', 'janvier', 'février'), 'printemps' : ('mars', 'avril', 'mai'), 'ete' : ('juin', 'juillet', 'aout'), 'automne' : ('septembre', 'octobre', 'novembre')}
+        liste = []
+        indice = {'annee':'annee','météo':'conditionsatmosperiques','departement':'nom_dep','saison':'saison'}
+        var = indice[var]
         #print(table[var])  
         for v in table[var]:
-            dic[v] = {0:0,1:0,2:0,3:0}
+            liste.append([v])
             for indice in range(4):
                 try:
-                    cur.execute(f"SELECT COUNT(*) FROM ACCIDENTS_VELOS WHERE graviteaccident = {indice} and {var} = '{v}'")
-                    dic[v][indice] = cur.fetchall()[0][0]
-                except:
-                    print(v)
-                
+                    if var == 'saison':
+                        cur.execute(f"SELECT COUNT(*) FROM ACCIDENTS_VELOS WHERE graviteaccident = {indice} AND ( mois = '{mois[v][0]}' OR mois = '{mois[v][1]}' OR mois = '{mois[v][2]}' )")
+                    elif var == 'nom_dep':
+                        cur.execute(f"SELECT COUNT(*) FROM DEPARTEMENT JOIN ACCIDENTS_VELOS ON DEPARTEMENT.code = ACCIDENTS_VELOS.departement WHERE ACCIDENTS_VELOS.graviteaccident = {indice} and DEPARTEMENT.nom_dep = '{v}'")
+                    else:
+                       cur.execute(f"SELECT COUNT(*) FROM ACCIDENTS_VELOS WHERE graviteaccident = {indice} and {var} = '{v}'")
+                    liste[-1].append(cur.fetchall()[0][0])
+                except Exception as e:
+                    print(e)
         cur.close()
         conn.close()
-        return dic
+        return liste
+
         
 if __name__=='__main__':
     liste_requete = {"annee":2010,"departement":"AUDE","gravite":"2"}
