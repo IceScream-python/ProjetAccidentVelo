@@ -30,10 +30,8 @@ class Requetes():
             if dico['gravite'] != 'Tout' or dico['departement'] != 'Tout':
                 condition += ' AND'
             condition += f" ACCIDENTS_VELOS.annee={dico['annee']}"
-        if None in dico.keys():
-            return []
         print(condition)
-        cur.execute(f"SELECT ACCIDENTS_VELOS.lat,ACCIDENTS_VELOS.lon, FROM ACCIDENTS_VELOS JOIN DEPARTEMENT ON ACCIDENTS_VELOS.departement = DEPARTEMENT.code  WHERE {condition} AND (ACCIDENTS_VELOS.lat<>0.0 AND ACCIDENTS_VELOS.lon<>0.0)")
+        cur.execute(f"SELECT ACCIDENTS_VELOS.lat,ACCIDENTS_VELOS.lon FROM ACCIDENTS_VELOS JOIN DEPARTEMENT ON ACCIDENTS_VELOS.departement = DEPARTEMENT.code  WHERE {condition} AND (ACCIDENTS_VELOS.lat<>0.0 AND ACCIDENTS_VELOS.lon<>0.0)")
         conn.commit()
         resultat = cur.fetchall()
         cur.close()
