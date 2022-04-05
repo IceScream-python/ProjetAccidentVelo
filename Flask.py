@@ -26,7 +26,7 @@ def accueil():
     try:
         coordonees = Requetes.liste_affichage(liste_requete)
         print(coordonees)
-        folium.plugins.MarkerCluster(coordonees).add_to(folium_map)
+        folium.plugins.MarkerCluster(coordonees, popups=coordonees).add_to(folium_map)
 
     except Exception as e:
        print(e)
