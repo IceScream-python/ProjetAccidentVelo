@@ -29,7 +29,7 @@ def accueil():
         folium.plugins.MarkerCluster(coordonees, popups=coordonees).add_to(folium_map)
 
     except Exception as e:
-       print(e)
+        print(e)
 
     
     print(liste_requete)
